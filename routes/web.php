@@ -1,20 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return ['Laravel' => app()->version()];
 });
 
+require __DIR__.'/auth.php';
 
-Route::get('/usuario', function () {
-    return view('usuario');
-});
+Auth::routes();
 
-Route::post('/usuario', [UserController::class, "store"] )->name("usuario");
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/editar/{id}', [UserController::class, "edit"] )->name("editar.usuario");
+Auth::routes();
 
-Route::post('/update/{id}', [UserController::class, "update"] )->name("actualizar.usuario");
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
